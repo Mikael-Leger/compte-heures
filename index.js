@@ -13,6 +13,7 @@ const app = express();
 const TOKEN = process.env.DISCORD_TOKEN;
 const CLIENT_ID = process.env.BOT_CLIENT_ID;
 const GUILD_ID = process.env.GUILD_ID;
+const TARGET_NAME = process.env.TARGET_NAME;
 
 const commands = [
     new SlashCommandBuilder()
@@ -103,6 +104,15 @@ const onUserSuccess = (message) => {
     updateDataJson();
 }
 
+const targetMessages = [
+    (user) => `Bah alors petit voyelle ${user.tag}, on rAgE ?`,
+    (user) => `Oh mais c'est toi la sassy bitch ${user.tag} !`,
+    (user) => `J'te mégenrage avoue ${user.tag}`,
+    (user) => `J't'ai eu là ${user.tag} ?`,
+    (user) => `Viens on s'embrouille ${user.tag}`,
+    (user) => `Chut ${user.tag}!`,
+]
+
 const onUserFail = async (user, message, messageText) => {
     const userFound = failedUsers.find(
         (failedUser) => failedUser.user.id === user.id,
@@ -112,7 +122,12 @@ const onUserFail = async (user, message, messageText) => {
     } else {
         failedUsers.push({ user, count: 1 });
     }
-    await message.channel.send(messageText);
+    if (user.tag === TARGET_NAME) {
+        const random = Math.random(targetMessages.length);
+        await message.channel.send(targetMessages[random](user));
+    } else {
+        await message.channel.send(messageText);
+    }
     expectedNumber = 0;
 
     updateDataJson();
