@@ -164,6 +164,10 @@ client.on("messageUpdate", async (oldMessage, newMessage) => {
 });
 
 client.on("messageCreate", async (message) => {
+    console.log(message.channel);
+    console.log(channelId);
+    console.log(message.channel.id == channelId);
+
     if (message.channel.id != channelId || message.author.bot) return;
     lastMessages.set(message.channel.id, message.id);
     const dataJson = JSON.parse(fs.readFileSync('data.json', 'utf8'));
