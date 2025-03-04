@@ -54,7 +54,8 @@ const client = new Client({
     ],
 });
 
-const channelName = process.env.CHANNEL_ID;
+const channelId = process.env.CHANNEL_ID;
+
 let expectedNumber = 0;
 let highScore = 0;
 let failedUsers = [];
@@ -150,7 +151,7 @@ const retrieveDataJson = () => {
 }
 
 client.on("messageUpdate", async (oldMessage, newMessage) => {
-    if (newMessage.channel.name !== channelName) return;
+    if (newMessage.channel.id != channelId) return;
     if (!oldMessage.content || !newMessage.content) return;
 
     if (lastMessages.get(newMessage.channel.id) === newMessage.id) {
@@ -163,7 +164,7 @@ client.on("messageUpdate", async (oldMessage, newMessage) => {
 });
 
 client.on("messageCreate", async (message) => {
-    if (message.channel.name !== channelName || message.author.bot) return;
+    if (message.channel.id != channelId || message.author.bot) return;
     lastMessages.set(message.channel.id, message.id);
     const dataJson = JSON.parse(fs.readFileSync('data.json', 'utf8'));
     const numberFromJson = dataJson.expectedNumber;
