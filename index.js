@@ -200,7 +200,11 @@ client.on("messageCreate", async (message) => {
                 `Tu peux pas jouer deux fois de suite ${message.author}, on recommence à 0.`,
             );
         } else {
-            onUserSuccess(message);
+            const messageDiscussion = (numberFromJson === 0) ? `C'est bon, on a fini de papoter ? ${message.author} à relancer le compteur, zé parti !` : null;
+            await onUserSuccess(
+                message,
+                messageDiscussion,
+            );
         }
         return;
     }
