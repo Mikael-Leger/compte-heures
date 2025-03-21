@@ -161,7 +161,7 @@ client.on("messageCreate", async (message) => {
     if (numberFromJson === 0 && message.content.toLowerCase() === "zero") {
         await onUserSuccess(
             message,
-            `C'est bon, on a fini de papoter ? ${message.author} à relancer le compteur, zé parti !`,
+            `C'est bon, on a fini de papoter ? ${message.author} insulte Arno puis relance le compteur, zé parti !`,
         );
         return;
     }
@@ -200,7 +200,7 @@ client.on("messageCreate", async (message) => {
                 `Tu peux pas jouer deux fois de suite ${message.author}, on recommence à 0.`,
             );
         } else {
-            const messageDiscussion = (numberFromJson === 0) ? `C'est bon, on a fini de papoter ? ${message.author} à relancer le compteur, zé parti !` : null;
+            const messageDiscussion = (numberFromJson === 0) ? `C'est bon, on a fini de papoter ? ${message.author} insulte Arno puis relance le compteur, zé parti !` : null;
             await onUserSuccess(
                 message,
                 messageDiscussion,
